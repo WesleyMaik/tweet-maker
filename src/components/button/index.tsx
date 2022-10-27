@@ -1,15 +1,15 @@
+//Modules
 import { HTMLAttributes } from "react";
 import styled from "styled-components";
 
-type TColorButton = "primary" | "secundary";
-
 interface IButtonProps extends HTMLAttributes<HTMLButtonElement>{
-    color?:TColorButton;
+    color?:"primary" | "secundary";
     icon?:JSX.Element;
 };
 
 export const Button = (props:IButtonProps) => {
     const Button = styled.button`
+        user-select:none;
         display:flex;
         align-items:center;
         gap:.5em;
@@ -22,7 +22,7 @@ export const Button = (props:IButtonProps) => {
         ${
             props.color == 'secundary' ?
             'background-color:var(--secundary-color);': 
-            'background-color:var(--primary-color);'
+            'background-color:#a8fff6;'
         }
         
         &:hover{
@@ -31,6 +31,11 @@ export const Button = (props:IButtonProps) => {
         }
         &:active{
             transform:scale(.95);
+        }
+        .icon{
+            display:flex;
+            justify-content:center;
+            align-items:center;
         }
     `;
     return (

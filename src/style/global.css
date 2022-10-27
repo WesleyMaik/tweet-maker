@@ -1,6 +1,34 @@
+/* Roboto font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+/* Twitter Chirp fonts */
+@font-face {
+    font-family: "Twitter Chirp";
+    src: url("/font/chirp-regular-web.woff");
+    font-weight: normal;
+}
+@font-face {
+    font-family: "Twitter Chirp";
+    src: url("/font/chirp-medium-web.woff");
+    font-weight: 500;
+}
+@font-face {
+    font-family: "Twitter Chirp";
+    src: url("/font/chirp-bold-web.woff");
+    font-weight: bold;
+}
+@font-face {
+    font-family: "Twitter Chirp";
+    src: url("/font/chirp-heavy-web.woff");
+    font-weight: 900;
+}
+
 :root{
     --primary-color:#1DA1F2;
     --secundary-color:#F5F8FA;
+    --light-mode:#ffffff;
+    --dim-mode:#15202B;
+    --dark-mode:#000000;
 }
 
 *{
@@ -13,5 +41,26 @@ html, body, #root{
 }
 
 body{
+    padding:.5em;
+    font-family: 'Roboto', 'Tahoma', 'Arial';
     background-color: var(--primary-color);
+}
+
+#root{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+hr{
+    width: 100%;
+    border:none;
+    border-top:1px solid #ccc;
+    opacity:.25;
+}
+
+.to-edit:focus, .to-edit:hover{
+    outline-style:dashed;
+    outline-width:2px;
+    outline-color:var(--primary-color);
 }
