@@ -1,0 +1,17 @@
+:root{
+    --primary-color:#1DA1F2;
+    --secundary-color:#F5F8FA;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+html, body, #root{
+    margin:0;
+    height: 100%;
+}
+
+body{
+    background-color: var(--primary-color);
+}
