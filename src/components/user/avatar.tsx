@@ -48,7 +48,7 @@ export const Avatar = () => {
         <Container 
             className="to-edit" 
             onClick={handleChangeAvatar} 
-            style={{backgroundImage:`${Boolean(image) ? `url('${image}')` : 'url("/default.png")' }`}}
+            style={{backgroundImage:`${Boolean(image) ? `url('${image}')` : 'url("./default.png")' }`}}
         />
     )
 };

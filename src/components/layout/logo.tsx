@@ -6,5 +6,5 @@ interface ILogoProps extends HTMLAttributes<HTMLImageElement>{
 };
 
 export const Logo = (props:ILogoProps) => {
-    return(<img src={props.type == 'white' ? "/logo-white.png" : "/logo.png"} width={150} style={{display:'block', margin:'auto'}} {...props} />)
+    return(<img src={props.type == 'white' ? "./logo-white.png" : "./logo.png"} width={150} style={{display:'block', margin:'auto'}} {...props} />)
 };
