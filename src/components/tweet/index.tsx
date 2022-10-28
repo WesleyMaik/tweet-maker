@@ -1,5 +1,6 @@
 //Modules
 import styled from "styled-components"
+import { useGetUrlParams } from "../../hook/useGetUrlParams";
 import { forwardRef, RefObject, useRef } from "react";
 
 //Components
@@ -9,85 +10,97 @@ import { Content } from "./content";
 import { Username } from "../user/username";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { Comment, Like, Reply, Share } from "../button/twitter-buttons";
+import { useSelector } from "react-redux";
+import { getSliceData } from "../../store/slice";
 
-export const Tweet = forwardRef<HTMLDivElement, any>((props, ref) => {
-    const Container = styled.div`
-        width:100%;
-        min-height:18em;
+const Container = styled.div`
+    width:100%;
+    min-height:18em;
 
+    display:flex;
+    flex-direction:column;
+    gap:.5em;
+
+    font-family:'Twitter Chirp';
+
+    padding:1em;
+    border-radius:6px;
+    box-shadow:0 4px 8px #00000020;
+    overflow:hidden;
+
+    &:not([data-color]), &[data-color='light']{
+        color:#000;
+        background-color:var(--light-mode);
+    }
+    &[data-color='dim']{
+        color:#fff;
+
+        background-color:var(--dim-mode);
+    }
+    &[data-color='dark']{
+        color:#fff;
+        background-color:var(--dark-mode);
+    }
+    &[data-preview='true']{
+        .to-edit{
+            border:none;
+            outline:none;
+        }
+    }
+
+    .header{
         display:flex;
-        flex-direction:column;
-        gap:.5em;
+        align-items:center;
+        gap:1em;
 
-        font-family:'Twitter Chirp';
-
-        padding:1em;
-        border-radius:6px;
-        box-shadow:0 4px 8px #00000020;
-
-        &:not([data-color]), &[data-color='light']{
-            color:#000;
-            background-color:var(--light-mode);
+        .options{
+            margin-left:auto;
         }
-        &[data-color='dim']{
-            color:#fff;
+    }
 
-            background-color:var(--dim-mode);
-        }
-        &[data-color='dark']{
-            color:#fff;
-            background-color:var(--dark-mode);
-        }
+    .content{
+        min-height:6em;
+    }
 
-        .header{
+    .action{
+        margin-top:auto;
+        .buttons{
             display:flex;
+            justify-content:space-around;
             align-items:center;
             gap:1em;
+            padding:.5em;
+            
+            .tweet-button{
+                cursor: pointer;
 
-            .options{
-                margin-left:auto;
-            }
-        }
-
-        .content{
-            min-height:6em;
-        }
-
-        .action{
-            margin-top:auto;
-            .buttons{
-                display:flex;
-                justify-content:space-around;
-                align-items:center;
-                gap:1em;
-                padding:.5em;
-                
-                .tweet-button{
-                    cursor: pointer;
-    
-                    &.active{
-                        &.reply{
-                            svg{
-                                fill:#00e193;
-                            }
-                        }
-                        &.like{
-                            svg{
-                                fill:#e10040;
-                            }
+                &.active{
+                    &.reply{
+                        svg{
+                            fill:#00e193;
                         }
                     }
-    
-                    svg{
-                        fill:#5b7083;
-                        width:1.5em;
-                        transition:all ease .25s;
+                    &.like{
+                        svg{
+                            fill:#e10040;
+                        }
                     }
+                }
+
+                svg{
+                    fill:#5b7083;
+                    width:1.5em;
+                    transition:all ease .25s;
                 }
             }
         }
-    `;
+    }
+`;
 
+export const Tweet = forwardRef<HTMLDivElement, any>((props, ref) => {
+    const preview = useGetUrlParams('preview') || useSelector(getSliceData).preview;
+    const { theme } = useSelector(getSliceData);
+    
     //Refs
     const replyRef = useRef<HTMLDivElement>(null),
           likeRef = useRef<HTMLDivElement>(null);
@@ -98,7 +111,7 @@ export const Tweet = forwardRef<HTMLDivElement, any>((props, ref) => {
     };
 
     return(
-        <Container ref={ref}>
+        <Container ref={ref} data-preview={preview} data-color={theme}>
             <div className="header">
                 <Avatar />
                 <Username />

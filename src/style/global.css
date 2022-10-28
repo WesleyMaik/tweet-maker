@@ -61,8 +61,33 @@ hr{
     opacity:.25;
 }
 
+.to-edit{
+    border-bottom: 1px dashed #00000020;
+}
+
 .to-edit:focus, .to-edit:hover{
     outline-style:dashed;
     outline-width:2px;
     outline-color:var(--primary-color);
+    border-bottom:none;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+    }
+    to{
+        opacity:1;
+    }
+}
+
+@keyframes appear{
+    from{
+        opacity:0;
+        transform:scale(.9);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
 }

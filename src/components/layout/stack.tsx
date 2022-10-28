@@ -1,5 +1,8 @@
 //Modules
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { getSliceData } from "../../store/slice";
+import { HTMLAttributes } from "react";
 
 interface IStackProps{
     direction?: "row" | "column" | "row-reverse" | "column-reverse";
@@ -9,15 +12,24 @@ interface IStackProps{
     children?:any;
 };
 
-export const Stack = ({direction, alignItems, gap, justifyContent, children}:IStackProps) => {
-    const Container = styled.div`
-        display:flex;
-        flex-direction:${(direction) || 'row'};
-        justify-content:${(justifyContent) || 'center'};
-        align-items:${(alignItems) || 'center'};
-        gap:${(gap) || '1em'};
-        flex-wrap:wrap;
-    `;
+const Container = styled.div`
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+    gap:1em;
+    flex-wrap:wrap;
+`;
 
-    return <Container children={children}/>
+export const Stack = (props:HTMLAttributes<HTMLDivElement>) => {
+    const { preview } = useSelector(getSliceData);
+
+    return (
+       <>
+        {
+            !Boolean(preview) &&
+            <Container>{props.children}</Container>
+        }
+       </>
+    )
 }

@@ -8,9 +8,10 @@ interface IButtonProps extends HTMLAttributes<HTMLButtonElement>{
 };
 
 export const Button = (props:IButtonProps) => {
-    const Button = styled.button`
+    const ButtonContainer = styled.button`
         user-select:none;
         display:flex;
+        justify-content:center;
         align-items:center;
         gap:.5em;
         padding:.75em;
@@ -22,7 +23,7 @@ export const Button = (props:IButtonProps) => {
         ${
             props.color == 'secundary' ?
             'background-color:var(--secundary-color);': 
-            'background-color:#a8fff6;'
+            'background-color:#9ce6ff;'
         }
         
         &:hover{
@@ -38,10 +39,11 @@ export const Button = (props:IButtonProps) => {
             align-items:center;
         }
     `;
+
     return (
-        <Button {...props}>
+        <ButtonContainer {...props}>
             { props.children }
             { Boolean(props.icon) && <span className="icon">{ props.icon }</span> }
-        </Button>
+        </ButtonContainer>
     );
 };

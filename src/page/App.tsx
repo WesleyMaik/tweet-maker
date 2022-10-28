@@ -1,69 +1,96 @@
 //Modules
 import { useRef } from "react";
 import styled from "styled-components";
+import { setPreview, setTheme } from "../store/slice";
+import { useDispatch } from "react-redux";
+import { useGetUrlParams } from "../hook/useGetUrlParams";
 
 //Components
+import { Logo } from "../components/layout/logo";
 import { Stack } from "../components/layout/stack";
 import { Tweet } from "../components/tweet";
 import { Button } from "../components/button";
-import { FiDownload } from 'react-icons/fi';
-import { GoVerified } from 'react-icons/go';
-import { ImageButton } from "../components/button/image-button";
-import { ToggleButton } from "../components/button/toggle-theme";
-import { ShareButton } from "../components/button/share";
-import { Logo } from "../components/layout/logo";
-import { Instructions } from "../components/layout/instructions";
 import { MyTwitter } from "../components/layout/my-twitter";
+import { ImageButton } from "../components/button/image-button";
+import { ShareButton } from "../components/button/share";
+import { ToggleButton } from "../components/button/toggle-theme";
+import { VerifyButton } from "../components/button/verify-button";
+import { PreviewButton } from "../components/button/preview-button";
+import { Instructions } from "../components/layout/instructions";
+import { FiArrowDown, FiDownload } from 'react-icons/fi';
+
+const Main = styled.main`
+    max-width:768px;
+    width:100%;
+    min-height:600px;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:1em;
+    position:relative;
+    margin:auto;
+
+    .arrow{
+        --size:24px;
+        position:absolute;
+        bottom:0;
+        transform:translateY(-150%);
+        
+        svg{
+            width:var(--size);
+            height:var(--size);
+            animation:scroll ease 2s infinite;
+        }
+
+        @keyframes scroll{
+            0%, 100%{ transform: translateY(0);}
+            50%{ transform: translateY(-50%); }
+        }
+    }
+`;
 
 const App = () => {
-    const Main = styled.main`
-        max-width:768px;
-        width:100%;
-        min-height:600px;
-        height:100%;
-        display:flex;
-        flex-direction:column;
-        justify-content:center;
-        align-items:center;
-        gap:1em;
-        margin:auto;
+    //Preview statement
+    const [preview, theme] = useGetUrlParams(['preview','theme']);
+    
+    const dispatch = useDispatch();
+    if(preview == 'true'){        
+        dispatch(setPreview(true));
+    };
 
-        .logo{
-            margin-bottom:auto;
-        }
-    `;
-
-    const tweetRef = useRef<HTMLDivElement>(null);
-    let theme = 0;
-    const handleToggleTheme = () => {
-        theme++;
-        if(theme > 2) theme = 0;
-        console.log(theme);
-        
-        if(tweetRef.current){
-            switch(theme){
-                case 0: (tweetRef.current.dataset.color = 'light'); break;
-                case 1: (tweetRef.current.dataset.color = 'dim'); break;
-                case 2: (tweetRef.current.dataset.color = 'dark'); break;
-            };
-        };
+    if(theme == "light" || theme == "dim" || theme == "dark"){
+        dispatch(setTheme(theme));
     };
 
     return(
         <>
-            <Logo className="logo" type="white"/>
+            <Logo type="white"/>
             <Main>
-                <Tweet ref={tweetRef}/>
+                { !Boolean(preview == 'true') && <PreviewButton /> }
+                <Tweet />
                 <Stack>
-                    <Button icon={<GoVerified />}>Verificado</Button>
-                    <ToggleButton onClick={handleToggleTheme}/>
+                    <VerifyButton />
+                    <ToggleButton />
                     <ImageButton />
                     <ShareButton />
                     <Button color="secundary" icon={<FiDownload/>}>Baixar Tweet</Button>
                 </Stack>
+                { 
+                    !Boolean(preview == 'true') &&
+                    <div className="arrow">
+                        <FiArrowDown color="#fff"/>
+                    </div>
+                }
             </Main>
-            <MyTwitter />
-            <Instructions />
+            { 
+                !Boolean(preview == 'true') &&
+                <>
+                    <MyTwitter />
+                    <Instructions />
+                </>
+            }
         </>
     )
 };

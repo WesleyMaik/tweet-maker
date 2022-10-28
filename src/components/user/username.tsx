@@ -1,32 +1,65 @@
 //Modules
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { useGetUrlParams } from "../../hook/useGetUrlParams";
+import { getSliceData } from "../../store/slice";
+
+//Components
+import { Verify } from "./verify";
+
+const Container = styled.div`
+    display:flex;
+    flex-direction:column;
+
+    .name, .username{
+        margin:.25em 0;
+    }
+
+    #name ,#username{
+        min-width:3em;
+    }
+
+    .name{
+        display:flex;
+        align-items:center;
+        gap:.25em;
+    }
+    .username{
+        color:#c4cfd6;
+        padding:0;
+        span{
+            padding:.25em;
+            padding-left:0;
+        }
+    }
+`;
 
 export const Username = () => {
-    const Container = styled.div`
-        display:flex;
-        flex-direction:column;
+    const [name, username] = useGetUrlParams(['name', 'username']);
+    const { preview } = useSelector(getSliceData);
+    const contentEditable = !preview;
 
-        .name, .username{
-            margin:0;
-            padding:0;
-        }
-        .username{
-            color:#c4cfd6;
-            padding:0;
-            span{
-                padding:.25em;
-                padding-left:0;
-            }
-        }
-    `;
+    const initialName = name ?? "Nome",
+          initialUsername = username ?? "Usuário";
 
-    const initialName = "Nome",
-          initialUsername = "Usuário";
+    const preventEnter = (ev:any) => {
+        if (ev.which === 13) {
+            ev.preventDefault();
+        }
+    };
 
     return(
         <Container>
-            <h3 className="name to-edit" aria-label="name" contentEditable spellCheck={false}>{ initialName }</h3>
-            <p className="username" aria-label="username">&#64;<span className="to-edit" contentEditable spellCheck={false}>{ initialUsername }</span></p>
+            <h3 className="name" aria-label="name">
+                <span id="name" className="to-edit" contentEditable={contentEditable} spellCheck={false} onKeyDown={preventEnter}>
+                    { initialName }
+                </span><Verify />
+            </h3>
+            <p className="username" aria-label="username">
+                &#64;<span id="username" className="to-edit" contentEditable={contentEditable} spellCheck={false} onKeyDown={preventEnter}>
+                    { initialUsername }
+                </span>
+            </p>
         </Container>
     )
 };
