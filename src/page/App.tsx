@@ -10,18 +10,27 @@ import { FiDownload } from 'react-icons/fi';
 import { GoVerified } from 'react-icons/go';
 import { ImageButton } from "../components/button/image-button";
 import { ToggleButton } from "../components/button/toggle-theme";
+import { ShareButton } from "../components/button/share";
+import { Logo } from "../components/layout/logo";
+import { Instructions } from "../components/layout/instructions";
+import { MyTwitter } from "../components/layout/my-twitter";
 
 const App = () => {
     const Main = styled.main`
         max-width:768px;
         width:100%;
         min-height:600px;
+        height:100%;
         display:flex;
         flex-direction:column;
         justify-content:center;
         align-items:center;
         gap:1em;
         margin:auto;
+
+        .logo{
+            margin-bottom:auto;
+        }
     `;
 
     const tweetRef = useRef<HTMLDivElement>(null);
@@ -41,15 +50,21 @@ const App = () => {
     };
 
     return(
-        <Main>
-            <Button icon={<GoVerified />}>Verificado</Button>
-            <Tweet ref={tweetRef}/>
-            <Stack>
-                <ToggleButton onClick={handleToggleTheme}/>
-                <ImageButton />
-                <Button color="secundary" icon={<FiDownload/>}>Baixar Tweet</Button>
-            </Stack>
-        </Main>
+        <>
+            <Logo className="logo" type="white"/>
+            <Main>
+                <Tweet ref={tweetRef}/>
+                <Stack>
+                    <Button icon={<GoVerified />}>Verificado</Button>
+                    <ToggleButton onClick={handleToggleTheme}/>
+                    <ImageButton />
+                    <ShareButton />
+                    <Button color="secundary" icon={<FiDownload/>}>Baixar Tweet</Button>
+                </Stack>
+            </Main>
+            <MyTwitter />
+            <Instructions />
+        </>
     )
 };
 

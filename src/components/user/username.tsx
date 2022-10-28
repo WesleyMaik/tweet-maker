@@ -1,8 +1,5 @@
 //Modules
-import { useState } from "react";
 import styled from "styled-components";
-
-import { BiPencil } from 'react-icons/bi'
 
 export const Username = () => {
     const Container = styled.div`
@@ -23,8 +20,8 @@ export const Username = () => {
         }
     `;
 
-    const initialName = "Name",
-          initialUsername = "Username";
+    const initialName = "Nome",
+          initialUsername = "Usuário";
 
     return(
         <Container>

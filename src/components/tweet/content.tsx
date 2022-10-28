@@ -2,7 +2,7 @@
 import styled from "styled-components";
 
 export const Content = () => {
-    const initContent = 'Your tweet here, tap to edit';
+    const initContent = 'Escreva seu tweet aqui, toque para editar';
 
     const Container = styled.div`
         padding:.5em;
@@ -10,7 +10,7 @@ export const Content = () => {
         &:empty{
             &:after{
                 color:#ddd;
-                content:'Your tweet here, tap to edit';
+                content:'Escreva seu tweet aqui, toque para editar';
             }
         }
     `;

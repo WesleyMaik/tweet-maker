@@ -13,9 +13,10 @@ export const Stack = ({direction, alignItems, gap, justifyContent, children}:ISt
     const Container = styled.div`
         display:flex;
         flex-direction:${(direction) || 'row'};
-        justify-content:${(justifyContent) || 'flex-start'};
-        align-items:${(alignItems) || 'flex-start'};
+        justify-content:${(justifyContent) || 'center'};
+        align-items:${(alignItems) || 'center'};
         gap:${(gap) || '1em'};
+        flex-wrap:wrap;
     `;
 
     return <Container children={children}/>
