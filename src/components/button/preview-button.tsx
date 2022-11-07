@@ -1,7 +1,8 @@
 //Modules
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { getSliceData, setPreview } from "../../store/slice";
+import { setPreview } from "../../store/slice";
+import { useTranslated } from "../../hook/useTranslated";
 
 const Container = styled.label`
     cursor: pointer;
@@ -42,15 +43,13 @@ const Container = styled.label`
 
 export const PreviewButton = () => {
     const dispatch = useDispatch();
-    const { preview } = useSelector(getSliceData);
-
-    const handleTogglePreview = () => {
-        dispatch(setPreview(!preview));
+    const handleTogglePreview = (e:any) => {
+        dispatch(setPreview(e.target?.checked));
     };
 
     return(
         <Container onChange={handleTogglePreview}>
-            <span>Pré-visualizar</span>
+            <span>{ useTranslated().preview }</span>
             <input type="checkbox" />
         </Container>
     )

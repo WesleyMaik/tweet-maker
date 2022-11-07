@@ -1,5 +1,6 @@
 import { FaTwitter } from "react-icons/fa";
 import styled from "styled-components";
+import { useTranslated } from "../../hook/useTranslated";
 
 export const MyTwitter = () => {
     const Container = styled.p`
@@ -16,7 +17,7 @@ export const MyTwitter = () => {
     `;
     return(
         <Container>
-            <a href='https://twitter.com/euwesleymaik' target='_blank'>Me siga no twitter @euwesleymaik <FaTwitter /></a>
+            <a href='https://twitter.com/euwesleymaik' target='_blank'>{ useTranslated().followMe } @euwesleymaik <FaTwitter /></a>
         </Container>
     )
 };

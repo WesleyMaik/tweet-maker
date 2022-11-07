@@ -1,16 +1,23 @@
-//Modal
-import { forwardRef, HTMLAttributes, useCallback, useImperativeHandle, useState } from "react";
-import { RiCloseCircleFill } from "react-icons/ri";
+//Modules
 import styled from "styled-components";
-import { Button } from "../button";
+import { useTranslated } from "../../hook/useTranslated";
+import { forwardRef, HTMLAttributes, useCallback, useImperativeHandle, useState } from "react";
 
-export interface IModalProps extends HTMLAttributes<HTMLDivElement>{}
+
+//Components
+import { Button } from "../button";
+import { RiCloseCircleFill } from "react-icons/ri";
+
+export interface IModalProps extends HTMLAttributes<HTMLDivElement>{
+    footerButtons?:JSX.Element,
+    closeText?:string
+};
 
 export interface IModalRef{
     handleOpen: () => void,
     handleClose: () => void,
     isOpen: boolean
-}
+};
 
 const Container = styled.div`
     width:100%;
@@ -47,6 +54,14 @@ const Container = styled.div`
             transform:translate(25%, -25%);
             background-color:#fff;
             border-radius:50%;
+        }
+
+        .footer_modal{
+            display:flex;
+            flex-direction:row;
+            justify-content:flex-end;
+            align-items:center;
+            gap:.5em;
         }
     }
 `;
@@ -93,14 +108,14 @@ export const Modal = forwardRef<IModalRef, IModalProps>((props, ref) => {
                         </div>
                         <hr/>
                         <div className="footer_modal">
+                            { props.footerButtons }
                             <Button 
                                 style={{
                                     backgroundColor:"#000", 
-                                    color:"#fff", 
-                                    marginLeft:'auto'
+                                    color:"#fff"
                                 }} 
                                 onClick={handleClose}
-                            >Fechar</Button>
+                            >{ props.closeText || "Fechar" }</Button>
                         </div>
                     </div>
                 </Container>

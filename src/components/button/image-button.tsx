@@ -6,6 +6,7 @@ import { setImage } from "../../store/slice";
 import { Button } from "./index";
 import { FiImage} from 'react-icons/fi'
 import { HTMLAttributes } from "react";
+import { useTranslated } from "../../hook/useTranslated";
 
 export const ImageButton = (props:HTMLAttributes<HTMLButtonElement>) => {
     const dispatch = useDispatch();
@@ -30,6 +31,6 @@ export const ImageButton = (props:HTMLAttributes<HTMLButtonElement>) => {
             color="secundary" 
             icon={<FiImage/>}
             onClick={handleImage}
-        >Adicionar&#x2f;Trocar imagem</Button>
+        >{ useTranslated().addImage }</Button>
     )
 };

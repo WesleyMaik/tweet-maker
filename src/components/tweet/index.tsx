@@ -24,24 +24,27 @@ const Container = styled.div`
     font-family:'Twitter Chirp';
 
     padding:1em;
-    border-radius:6px;
-    box-shadow:0 4px 8px #00000020;
     overflow:hidden;
 
     &:not([data-color]), &[data-color='light']{
         color:#000;
-        background-color:var(--light-mode);
+        background-color:var(--light-mode) !important;
     }
     &[data-color='dim']{
         color:#fff;
 
-        background-color:var(--dim-mode);
+        background-color:var(--dim-mode) !important;
     }
     &[data-color='dark']{
         color:#fff;
-        background-color:var(--dark-mode);
+        background-color:var(--dark-mode) !important;
     }
     &[data-preview='true']{
+        #content{
+            &:after{
+                display:none;
+            }
+        }
         .to-edit{
             border:none;
             outline:none;
@@ -111,7 +114,7 @@ export const Tweet = forwardRef<HTMLDivElement, any>((props, ref) => {
     };
 
     return(
-        <Container ref={ref} data-preview={preview} data-color={theme}>
+        <Container id="tweet" ref={ref} data-preview={preview} data-color={theme}>
             <div className="header">
                 <Avatar />
                 <Username />

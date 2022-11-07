@@ -1,5 +1,6 @@
 //Modules
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ITranslated, translated } from "./translate";
 
 //Selector
 interface ISelector{
@@ -8,7 +9,8 @@ interface ISelector{
         theme:'light' | 'dim' | 'dark'
         verified:boolean,
         preview:boolean,
-        url:string
+        url:string,
+        translated:ITranslated
     }
 };
 
@@ -18,7 +20,8 @@ const initialState:ISelector['slice'] = {
     theme:'light',
     verified:false,
     preview:false,
-    url:''
+    url:'',
+    translated:translated('PT')
 };
 
 //Slice
@@ -41,11 +44,14 @@ export const slice = createSlice({
       setUrl: (state, { payload }:PayloadAction<string>) => {
         return {...state, url:payload}
       },
+      setLang: (state, { payload }:PayloadAction<"PT" | "EN">) => {
+        return {...state, translated:translated(payload)}
+      },
     },
 });
 
 //Actions
-export const { setImage, setTheme, setVerified, setPreview, setUrl } = slice.actions;
+export const { setImage, setTheme, setVerified, setPreview, setUrl, setLang } = slice.actions;
 
 //Selector method
 export const getSliceData = (state:ISelector) => state.slice;

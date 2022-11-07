@@ -1,8 +1,10 @@
 //Modules
-import { useSelector } from "react-redux";
+import parse from 'html-react-parser';
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 import { useGetUrlParams } from "../../hook/useGetUrlParams";
 import { getSliceData } from "../../store/slice";
+import { useTranslated } from '../../hook/useTranslated';
 
 const Container = styled.div`
     padding:.5em;
@@ -10,17 +12,16 @@ const Container = styled.div`
     &:empty{
         &:after{
             color:#ddd;
-            content:'Escreva seu tweet aqui, toque para editar';
+            content:'...';
         }
     }
 `;
 
 export const Content = () => {
-    const content = useGetUrlParams('content');
-    const { preview } = useSelector(getSliceData);
-    const contentEditable = !preview;
-    
-    const initContent = content || 'Escreva seu tweet aqui, toque para editar';
+    const content = useGetUrlParams('content'),
+          { preview } = useSelector(getSliceData),
+          contentEditable = !preview,
+          initContent = parse(content as string || useTranslated().content);
 
     return(
         <Container 
@@ -29,6 +30,6 @@ export const Content = () => {
             aria-label="Content" 
             contentEditable={contentEditable} 
             spellCheck={false}
-        >{ initContent }</Container>
+        >{  initContent }</Container>
     )
 };

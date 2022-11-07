@@ -6,6 +6,7 @@ import { setVerified, getSliceData } from '../../store/slice';
 //Components
 import { GoVerified } from "react-icons/go";
 import { Button } from "./index";
+import { useTranslated } from "../../hook/useTranslated";
 
 export const VerifyButton = (props:HTMLAttributes<HTMLButtonElement>) => {
     const dispatch = useDispatch();
@@ -21,7 +22,7 @@ export const VerifyButton = (props:HTMLAttributes<HTMLButtonElement>) => {
                 icon={<GoVerified />}
                 onClick={handleToggleVerify}
             >
-                { Boolean(verified) ? 'Não Verificar' : 'Verificar' }
+                { Boolean(verified) ? useTranslated().unverify : useTranslated().verify }
             </Button>
     )
 };

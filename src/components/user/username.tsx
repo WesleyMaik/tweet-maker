@@ -2,7 +2,9 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { useGetUrlParams } from "../../hook/useGetUrlParams";
+import { useTranslated } from "../../hook/useTranslated";
 import { getSliceData } from "../../store/slice";
+import { translated } from "../../store/translate";
 
 //Components
 import { Verify } from "./verify";
@@ -20,6 +22,7 @@ const Container = styled.div`
     }
 
     .name{
+        max-width:300px;
         display:flex;
         align-items:center;
         gap:.25em;
@@ -39,13 +42,13 @@ export const Username = () => {
     const { preview } = useSelector(getSliceData);
     const contentEditable = !preview;
 
-    const initialName = name ?? "Nome",
-          initialUsername = username ?? "Usuário";
+    const initialName = name ?? useTranslated().name,
+          initialUsername = username ?? useTranslated().username;
 
     const preventEnter = (ev:any) => {
         if (ev.which === 13) {
             ev.preventDefault();
-        }
+        };
     };
 
     return(

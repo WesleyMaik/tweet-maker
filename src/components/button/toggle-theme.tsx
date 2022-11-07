@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 //Components
 import { Button } from "./index";
 import { RiContrastLine } from "react-icons/ri";
+import { useTranslated } from "../../hook/useTranslated";
 
 export const ToggleButton = (props:HTMLAttributes<HTMLButtonElement>) => {
     const { theme } = useSelector(getSliceData),
@@ -29,6 +30,6 @@ export const ToggleButton = (props:HTMLAttributes<HTMLButtonElement>) => {
                 color="secundary" 
                 icon={<RiContrastLine />}
                 onClick={handleToggleTheme}
-            >Trocar Tema</Button>
+            >{ useTranslated().theme }</Button>
         )
 };

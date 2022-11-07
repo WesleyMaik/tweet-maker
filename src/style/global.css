@@ -44,15 +44,8 @@ html, body, #root{
 body{
     padding:.5em;
     font-family: 'Roboto', 'Tahoma', 'Arial';
-    background-color: var(--primary-color);
+    background-color: var(--primary-color) !important;
 }
-
-/*#root{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-}*/
 
 hr{
     width: 100%;
