@@ -29,7 +29,7 @@ export const Instructions = () => {
     
     return(
         <Container>
-            <h3><u>Como usar:</u></h3>
+            <h3><u>{ useTranslated().howToUse }</u></h3>
             <p dangerouslySetInnerHTML={{__html:useTranslated().instruction[0]}}/>
             <p dangerouslySetInnerHTML={{__html:useTranslated().instruction[1]}}/>
             <p dangerouslySetInnerHTML={{__html:useTranslated().instruction[2]}}/>

@@ -1,7 +1,10 @@
-import { useDispatch } from "react-redux";
+//Modules
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
 import { useTranslated } from "../../hook/useTranslated";
 import { setLang } from "../../store/slice";
+import brazil from "../../../public/images/brazil.png";
+import eua from "../../../public/images/eua.png";
 
 const Container = styled.div`
     display:flex;
@@ -33,12 +36,14 @@ export const LangButton = () => {
         <Container data-selected={lang}>
             <img 
                 className="flag brazil" 
-                src="./brazil.png" 
+                src={brazil} 
+                alt="Brazil Flag"
                 onClick={() => dispatch(setLang('PT'))}
             />
             <img 
                 className="flag eua" 
-                src="./eua.png" 
+                src={eua}
+                alt="Eua Flag"
                 onClick={() => dispatch(setLang('EN'))}
             />
         </Container>

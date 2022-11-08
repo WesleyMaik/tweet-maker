@@ -1,9 +1,9 @@
 //Module
 import styled from "styled-components";
-import { useGetUrlParams } from "../../hook/useGetUrlParams";
 import { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import { getSliceData } from "../../store/slice";
+import user from "../../../public/images/default.png";
 
 const Container = styled.div`
     --size:3em;
@@ -48,7 +48,7 @@ export const Avatar = () => {
         <Container 
             className="to-edit" 
             onClick={handleChangeAvatar} 
-            style={{backgroundImage:`${Boolean(image) ? `url('${image}')` : 'url("./default.png")' }`}}
+            style={{backgroundImage:`${Boolean(image) ? `url('${image}')` : `url(${user})` }`}}
         />
     )
 };

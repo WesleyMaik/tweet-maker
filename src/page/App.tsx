@@ -1,26 +1,25 @@
 //Modules
 import styled from "styled-components";
+import html2canvas from 'html2canvas';
 import { setPreview, setTheme } from "../store/slice";
 import { useDispatch } from "react-redux";
 import { useGetUrlParams } from "../hook/useGetUrlParams";
-import html2canvas from 'html2canvas'
 
 //Components
 import { Logo } from "../components/layout/logo";
 import { Stack } from "../components/layout/stack";
 import { Tweet } from "../components/tweet";
-import { Button } from "../components/button";
 import { Footer } from "../components/layout/footer";
 import { MyTwitter } from "../components/layout/my-twitter";
+import { LangButton } from "../components/button/lang-button";
+import { FiArrowDown } from 'react-icons/fi';
 import { ImageButton } from "../components/button/image-button";
 import { ShareButton } from "../components/button/share";
 import { ToggleButton } from "../components/button/toggle-theme";
 import { VerifyButton } from "../components/button/verify-button";
-import { PreviewButton } from "../components/button/preview-button";
 import { Instructions } from "../components/layout/instructions";
-import { FiArrowDown, FiDownload } from 'react-icons/fi';
+import { PreviewButton } from "../components/button/preview-button";
 import { DownloadButton } from "../components/button/download-button";
-import { LangButton } from "../components/button/lang-button";
 
 const Main = styled.main`
     max-width:768px;
@@ -81,10 +80,41 @@ const App = () => {
         });
         dispatch(setPreview(false));
     };
+
+    //Sections
+
+    const LangSection = () => {
+        return(
+            <>{ 
+                !Boolean(preview == 'true') &&
+                <LangButton />
+            }</>
+        )
+    };
+
+    const ArrowSection = () => {
+        return(
+            <>{ 
+                !Boolean(preview == 'true') &&
+                <div className="arrow">
+                    <FiArrowDown color="#fff"/>
+                </div>
+            }</>
+        )
+    };
+
+    const InstructionSection = () => {
+        return (
+            <>{ 
+                !Boolean(preview == 'true') &&
+                <><MyTwitter /><Instructions /></>
+            }</>
+        )
+    };
     
     return(
         <>  
-            <LangButton />
+            <LangSection />
             <Logo type="white"/>
             <Main id="main">
                 { !Boolean(preview == 'true') && <PreviewButton /> }
@@ -96,20 +126,9 @@ const App = () => {
                     <ShareButton />
                     <DownloadButton onClick={downloadTweet}/>
                 </Stack>
-                { 
-                    !Boolean(preview == 'true') &&
-                    <div className="arrow">
-                        <FiArrowDown color="#fff"/>
-                    </div>
-                }
+                <ArrowSection />
             </Main>
-            { 
-                !Boolean(preview == 'true') &&
-                <>
-                    <MyTwitter />
-                    <Instructions />
-                </>
-            }
+            <InstructionSection />
             <Footer />
         </>
     )

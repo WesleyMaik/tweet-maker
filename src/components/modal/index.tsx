@@ -30,6 +30,7 @@ const Container = styled.div`
     left:0;
     padding:1em;
     background-color:#00000080;
+    backdrop-filter:blur(4px);
     z-index:999;
     animation:fade ease .5s forwards;
 
